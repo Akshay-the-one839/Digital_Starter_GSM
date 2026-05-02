@@ -116,8 +116,6 @@ int8 Index = 0;
 int1 ctimer=0;
 volatile int1 save_timer_flag = 0;   // set by ISR, consumed by main loop
 int8 last_saved_timer_m = 0xFF;      // track last saved minute to avoid redundant writes
-int8 last_phase_setting = 0;   // tracks previous phase to detect change
-int1 timer_resume_pending = 0;
 //------------------------------------------------------------------------------
 // Existing global variables (unchanged)
 //------------------------------------------------------------------------------
@@ -126,7 +124,7 @@ int  encoder_last_state = 1;
 int1 unbal_trip_sent = 0;
 int16 handle_parameter_input(char* title, int16 value, int16 min, int16 max);
 int16 sd_delay = 0;
-int16 set_on_time = 0;   
+
 int16 rvolt = 0, yvolt = 0, bvolt = 0;
 int8  rvolt1 = 0, yvolt1 = 0, bvolt1 = 0;
 int8  rvolt2 = 0, yvolt2 = 0, bvolt2 = 0;
@@ -137,14 +135,12 @@ int8  ramp1 = 0, yamp1 = 0, bamp1 = 0;
 int8  ramp2 = 0, yamp2 = 0, bamp2 = 0;
 
 int16 delay_time1 = 0;
-float ctc1  = 0.059;   // CT divisor  (default for 5A CT)
-float ctc11 = 0.64;    // CT multiplier (default for 5A CT)
-int8  getct = 1;       // CT selection index (1=5A default)
+
 int  encoderPos = 0;
 int  prog = 0;           // 0=Normal, 1=Menu Mode
 int8 phase_setting = 0;  // 0=2P, 1=3P
 int8 trip_status = 0;    // 0=OK, 1=TRIP
-int1 phase_loss_active = 0;   // 1 = phase loss present, block manual ON
+
 int16 hv_value = 0;
 int16 lv_value = 0;
 int16 ol_value = 0;
@@ -626,36 +622,44 @@ void save_number(char *num, int slot) {
    for(int i=0;i<10;i++)
       write_eeprom(base_addr+i,num[i]);
 
-   // Reload ALL runtime buffers from EEPROM (keeps num1..num5 consistent)
-   for(int j=0; j<10; j++)
-      num1[j] = read_eeprom(NUM1_ADDR + j);
-   num1[10] = '\0';
-
-   for(int y=0; y<10; y++)
-      num2[y] = read_eeprom(NUM2_ADDR + y);
-   num2[10] = '\0';
-
-   for(int x=0; x<10; x++)
-      num3[x] = read_eeprom(NUM3_ADDR + x);
-   num3[10] = '\0';
-
-   for(int z=0; z<10; z++)
-      num4[z] = read_eeprom(NUM4_ADDR + z);
-   num4[10] = '\0';
-
-   for(int w=0; w<10; w++)
-      num5[w] = read_eeprom(NUM5_ADDR + w);
-   num5[10] = '\0';
-
-   // Display confirmation on LCD with the saved number
+   // reload runtime buffers from EEPROM (keeps num1..num4 consistent)
    lcd_cmd(LCD_CLEAR);
-   lcd_goto(1,1);
-   printf(lcd_out,"NUM SAVED SLOT %d", slot);
-   lcd_goto(1,2);
-   printf(lcd_out,"%s", num);
-   delay_ms(2000);
+   lcd_goto(2,1);
+   for(int j=0; j<10; j++){
+      num1[j] = read_eeprom(NUM1_ADDR + j);
+       
+        printf(lcd_out,"%c",num1[j] );                                     /////////////////////////////
+   }
+   num1[10] = '\0';
+   
+    lcd_goto(2,1);
+   for(int y=0; y<10; y++){
+      num2[y] = read_eeprom(NUM2_ADDR + y);
+      printf(lcd_out,"%c",num2[y] );  
+   }
+   num2[10] = '\0';
+   
+   lcd_goto(2,1);
+   for(int x=0; x<10; x++){
+      num3[x] = read_eeprom(NUM3_ADDR + x);
+      printf(lcd_out,"%c",num3[x] );  
+   }
+   num3[10] = '\0';
+   
+   lcd_goto(2,1);
+   for(int z=0; z<10; z++){
+      num4[z] = read_eeprom(NUM4_ADDR + z);
+      printf(lcd_out,"%c",num4[z] );  
+   }
+   num4[10] = '\0';
+   
+    lcd_goto(2,1);
+   for(int w=0; w<10; w++){
+    num5[w] = read_eeprom(NUM5_ADDR + w);
+    printf(lcd_out,"%c",num5[w] );
+   }
+   num5[10] = '\0';
 }
-
 void init_slot_status(void) {
     int8 slot_flags = read_eeprom(GSM_SLOT_EN_ADDR);
    
@@ -881,20 +885,6 @@ int1 is_authorized(char *sender) {
     }
     return 0;
 }
-int1 all_phases_ok(void)
-{
-    if(phase_setting == 1)  // 3P mode
-    {
-        if(voltages[0] < 50 || voltages[1] < 50 || voltages[2] < 50)
-            return 0;
-    }
-    else  // 2P mode - only R and Y needed
-    {
-        if(voltages[0] < 50 || voltages[1] < 50)
-            return 0;
-    }
-    return 1;
-}
 //==============================================================================
 // Existing motor control functions (unchanged)
 //==============================================================================
@@ -902,30 +892,29 @@ void mon()
 {
    output_high(OFF);
    output_low(ON);
-   on_state = 1;
-
-   // SET ON TIME delay (EEPROM 0x48/0x49, menu item 4)
+    on_state = 1;
    for(int i = 0; i < set_on_time; i++)
       delay_ms(990);
-
+  
    output_high(ON);
    q = 'A';
+ 
 }
+
 void moff()
 {
    output_high(ON);
    output_low(OFF);
-   on_state = 0;
-
-   // STAR DELTA delay (EEPROM 0x14/0x15, menu item 5)
-   for(int i = 0; i < sd_delay; i++)
-      delay_ms(990);
-
+    on_state = 0;
+   for(int i = 0; i < on_delay; i++)
+      delay_ms(990);  // ~1 second per iteration
+  
    q = 'a';
-
+ 
    if(amps_level == 1) return;
    output_high(OFF);
 }
+
 void change()
 {
    vr = (voltages[0] < 50) ? 0 : voltages[0];
@@ -957,11 +946,11 @@ void voltage()
          volt_level = 0;
       }
    }
-  else  // 2P mode - only check R and Y
+   else
    {
-      if(vr < l_voltr || vy < l_volty)
+      if(vr < l_voltr || vy < l_volty || vb < l_voltb)
          volt_level = 1;
-      else if(vr > h_voltr || vy > h_volty)
+      else if(vr > h_voltr || vy > h_volty || vb > h_voltb)
          volt_level = 2;
       else
       {
@@ -978,11 +967,8 @@ void amps()
    {
       if(currentr < drya && currentr2 < drya)
       {
-         // In timer mode, only accumulate dry run during ON phase
-         int1 allow_dryrun = 1;
-         if(timer_mode == 1 && timer_phase == 1) allow_dryrun = 0;
-         if(dry_s==0 && amps_level==0 && on_state==1 && allow_dryrun==1)
-         { dry_s=1;  }
+         if(dry_s==0 && amps_level==0 && on_state==1)
+         { dry_s=1; dry_reset_s=1; }
       }
       else if(currentr > over_cr || currentr2 > over_cy)
          amps_level = 2;
@@ -994,12 +980,10 @@ void amps()
    }
    else
    {
-     if(currentr < drya && currentr2 < drya && currentr3 < drya)
+      if(currentr < drya && currentr2 < drya && currentr3 < drya)
       {
-         int1 allow_dryrun = 1;
-         if(timer_mode == 1 && timer_phase == 1) allow_dryrun = 0;
-         if(dry_s==0 && amps_level==0 && on_state==1 && allow_dryrun==1)
-         { dry_s=1; }
+         if(dry_s==0 && amps_level==0 && on_state==1)
+         { dry_s=1; dry_reset_s=1; }
       }
       else if(currentr > over_cr && currentr2 > over_cy && currentr3 > over_cb)
          amps_level = 2;
@@ -1025,8 +1009,7 @@ int new_value()
       for(i = 3; i < 6; i++)
       {
          float adc_voltage = adc_values[i] * 5.0 / 1023.0;
-        // currents[i-3] = (adc_voltage / 0.059) * 0.64;
-        currents[i-3] = (adc_voltage / ctc1) * ctc11;
+         currents[i-3] = (adc_voltage / 0.059) * 0.64;
          adc_values[i] = 1023;
       }
       change();
@@ -1523,7 +1506,6 @@ void handle_star_delta_delay()
             {
                if(sd_delay>60) sd_delay=60;
                write_eeprom(0x14,make8(sd_delay,0)); write_eeprom(0x15,make8(sd_delay,1));
-               on_delay = (int8)sd_delay; 
                lcd_cmd(LCD_CLEAR); lcd_goto(1,1); printf(lcd_out," DELAY SAVED! ");
                lcd_goto(1,2); printf(lcd_out,"   %ld sec   ",(long)sd_delay);
                while(input(ENCODER_SW)==0) delay_ms(10);
@@ -1971,7 +1953,6 @@ void handle_set_on_time()
             if(on_time!=original_time)
             {
                write_eeprom(0x48,make8(on_time,0)); write_eeprom(0x49,make8(on_time,1));
-               set_on_time = on_time;
                lcd_cmd(LCD_CLEAR); lcd_goto(1,1); printf(lcd_out," TIME SAVED!   ");
                lcd_goto(1,2); printf(lcd_out,"   %ld sec   ",(long)on_time);
                while(input(ENCODER_SW)==0) delay_ms(10);
@@ -2314,8 +2295,7 @@ void handle_ct_selection_menu(void)
          {
             if(ct_ratios[option]!=original_ratio)
             {
-             write_eeprom(0x60, ct_ratios[option]);
-            write_eeprom(0x5F, option + 1);   // save getct index safely at 0x5F
+               write_eeprom(0x60,ct_ratios[option]);
                lcd_cmd(LCD_CLEAR); lcd_goto(1,1); printf(lcd_out,"CT SAVED!");
                lcd_goto(1,2); printf(lcd_out,"CT: %luA (%u:1)",(unsigned long)ct_amps[option],ct_ratios[option]);
                while(input(ENCODER_SW)==0) delay_ms(10);
@@ -2784,7 +2764,7 @@ void load_next_timer_slot(void)
       // Turn motor ON
       disable_interrupts(int_AD);
       disable_interrupts(int_TIMER1);
-    if(volt_level==0 && amps_level==0 && all_phases_ok())
+      if(volt_level==0 && amps_level==0)
       {
          ctimer   = 1;
          mon();
@@ -2893,16 +2873,12 @@ void handle_timer_mode(void)
     // If timer is halted by SMS command, do nothing - wait for #ON to resume
    if(timer_halted == 1) return;
 
-  if(timer_running == 0)
+   if(timer_running == 0)
    {
       if(timer_phase_done == 0)
       {
-         // Do NOT reset slot if a resume is pending - apply_timer_resume() handles it
-         if(timer_resume_pending == 0)
-         {
-            active_timer_slot = 0;
-            load_next_timer_slot();
-         }
+         active_timer_slot = 0;
+         load_next_timer_slot();
       }
       return;
    }
@@ -2934,11 +2910,6 @@ void handle_timer_mode(void)
          disable_interrupts(int_AD);
          disable_interrupts(int_TIMER1);
           ctimer=0;
-          // Reset dry run counters when entering OFF phase
-         dry_s      = 0;
-         dry_reset_s = 0;
-         amps_level  = 0;
-         sentflg     = 0;
          moff();
          on_state = 0;
          state = 0;
@@ -2993,6 +2964,7 @@ void save_timer_to_eeprom(void)
  * Call once at startup (after loading gsm_enable etc.)
  * Restores timer state if a valid save is present.
  *---------------------------------------------------------*/
+
 void resume_timer_from_eeprom(void)
 {
     int8 valid = read_eeprom(TIMER_RESUME_VALID_ADDR);
@@ -3002,24 +2974,40 @@ void resume_timer_from_eeprom(void)
 
     timer_h            = read_eeprom(TIMER_RESUME_H_ADDR);
     timer_m            = read_eeprom(TIMER_RESUME_M_ADDR);
-    timer_s            = 0;
+    timer_s            = 0;        // always restart seconds from 0, not read from EEPROM
     timer_phase        = read_eeprom(TIMER_RESUME_PHASE_ADDR);
     active_timer_slot  = read_eeprom(TIMER_RESUME_SLOT_ADDR);
 
     if(timer_h > 23)  timer_h = 0;
     if(timer_m > 59)  timer_m = 0;
+    // no sanity check needed for timer_s since we hardcoded 0
     if(active_timer_slot > 4) active_timer_slot = 0;
 
-    if(timer_h == 0 && timer_m == 0)
+    if(timer_h == 0 && timer_m == 0)   // seconds not checked - always 0 on resume
     {
         clear_timer_resume_eeprom();
         return;
     }
 
-    timer_phase_done     = 0;
-    timer_running        = 0;
-    timer_resume_pending = 1;   // <-- ADDED: signal apply_timer_resume() to handle it
+    timer_phase_done = 0;
+    timer_running    = 0;
 
+ /*   if(timer_phase == 0)
+    {
+        if(volt_level == 0 && amps_level == 0)
+        {
+            ctimer   = 1;
+            mon();
+            on_state = 1;
+            state    = 1;
+            q        = 'A';
+        }
+    }*/
+
+  //  lcd_cmd(LCD_CLEAR);
+  //  lcd_goto(1,1); printf(lcd_out,"TIMER RESUMED   ");
+ //   lcd_goto(1,2); printf(lcd_out,"%02d:%02d          ", timer_h, timer_m);  // no seconds shown
+  //  lcd_goto(1,2); printf(lcd_out,"Resuming shortly");
     delay_ms(1500);
     lcd_cmd(LCD_CLEAR);
 }
@@ -3039,13 +3027,12 @@ void apply_timer_resume(void)
         return;
     }
 
-   timer_phase_done     = 0;
-    timer_running        = 1;   // NOW start the countdown
-    timer_resume_pending = 0;   // <-- ADDED: resume applied, clear flag
+    timer_phase_done = 0;
+    timer_running    = 1;   // NOW start the countdown
 
-  if(timer_phase == 0)
+    if(timer_phase == 0)
     {
-        if(volt_level == 0 && amps_level == 0 && all_phases_ok())
+        if(volt_level == 0 && amps_level == 0)
         {
             ctimer   = 1;
             mon();
@@ -3074,23 +3061,6 @@ void apply_timer_resume(void)
 
     delay_ms(1000);
     lcd_cmd(LCD_CLEAR);
-}
-int1 all_three_phases_present(void)
-{
-    // vr, vy, vb must all be above 50V threshold
-    if(vr < 50) return 0;
-    if(vy < 50) return 0;
-    if(vb < 50) return 0;
-    return 1;
-}
-int1 two_phase_ok(void)
-{
-    if(phase_setting == 0)  // 2P mode only
-    {
-        if(vr < 50 || vy < 50)
-            return 0;  // R or Y missing - block motor
-    }
-    return 1;  // 3P mode handled elsewhere, or both R+Y present
 }
 //==============================================================================
 // MAIN
@@ -3121,11 +3091,13 @@ void main()
    delay_ms(10);
    read_adc(ADC_START_ONLY);
 
+   //--------------------------------------------------------------------------
+   // Load EEPROM settings (all existing values unchanged)
+   //--------------------------------------------------------------------------
    phase_setting = read_eeprom(0x00);
    if(phase_setting==0xFF) phase_setting=0;
    phase = phase_setting;
-   if(phase_setting == 0) seqok=1;
-   last_phase_setting = phase_setting;
+   if(phase) seqok=1;
 
    hv_value = make16(read_eeprom(0x05),read_eeprom(0x04));
    lv_value = make16(read_eeprom(0x09),read_eeprom(0x08));
@@ -3137,7 +3109,7 @@ void main()
    if(sd_delay==0xFFFF)    sd_delay=3;
    on_delay = sd_delay;
 
-   set_on_time = make16(read_eeprom(0x49),read_eeprom(0x48));
+   int16 set_on_time = make16(read_eeprom(0x49),read_eeprom(0x48));
    if(set_on_time==0xFFFF) set_on_time=0;
 
    drys = make16(read_eeprom(0x18),read_eeprom(0x17));
@@ -3197,9 +3169,6 @@ void main()
    float ir_10min=(float)ir_10min_int/10.0;
    float pii_val=0;
    if(ir_1min>0.0) pii_val=ir_10min/ir_1min;
-   int8 ct_ratio = read_eeprom(0x60);
-   getct = read_eeprom(0x5F);
-   if(getct < 1 || getct > 6) getct = 1;
 
    //--------------------------------------------------------------------------
    // Load GSM settings from EEPROM
@@ -3237,44 +3206,6 @@ void main()
    for(int v=0; v<10; v++){ num5[v] = read_eeprom(NUM5_ADDR + v); } num5[10] = '\0';
    
    init_slot_status();   // load slot_enabled[] from EEPROM
-  // ---- Load CT constants based on getct index ----
-      if(getct == 1)        // 5A CT
-      {
-          ctc1  = 0.059;
-          ctc11 = 0.64;
-      }
-      else if(getct == 2)   // 30A CT
-      {
-          ctc1  = 0.059;
-          ctc11 = 0.64;
-      }
-      else if(getct == 3)   // 50A CT
-      {
-          ctc1  = 0.059;
-          ctc11 = 0.64;
-      }
-      else if(getct == 4)   // 100A CT
-      {
-          ctc1  = 0.059;
-          ctc11 = 0.64;
-      }
-      else if(getct == 5)   // 200A CT
-      {
-          ctc1  = 0.059;
-          ctc11 = 0.64;
-      }
-      else if(getct == 6)   // 300A CT
-      {
-          ctc1  = 0.059;
-          ctc11 = 0.64;
-      }
-      else                  // fallback default
-      {
-          ctc1  = 0.059;
-          ctc11 = 0.64;
-      }
-
-
 
    //--------------------------------------------------------------------------
    // Startup splash
@@ -3299,59 +3230,40 @@ void main()
    //--------------------------------------------------------------------------
    // Phase sequence detection (unchanged)
    //--------------------------------------------------------------------------
-  if(phase_setting == 1)
+   if(seqok==0)
+   {
+      while(1)
       {
-          // First wait until all 3 phases are present
-          // before even attempting sequence detection
-          while(1)
-          {
-              new_value();   // update vr, vy, vb readings
-              voltage();
-      
-              if(all_three_phases_present())
-                  break;     // all 3 phases detected, proceed
-      
-              // Not all phases present - blink LEDs and wait
-              output_low(RLED); output_low(YLED); output_low(BLED);
-              delay_ms(200);
-              output_high(RLED); output_high(YLED); output_high(BLED);
-              delay_ms(200);
-      
-              // Show waiting message on LCD
-              lcd_cmd(LCD_CLEAR);
-              lcd_goto(1,1); printf(lcd_out,"3P MODE: WAITING");
-              lcd_goto(1,2); printf(lcd_out,"FOR ALL 3 PHASES");
-              delay_ms(300);
-          }
-      
-          // All 3 phases present - now do sequence detection
-          lcd_cmd(LCD_CLEAR);
-          lcd_goto(1,1); printf(lcd_out,"3 PHASES OK");
-          lcd_goto(1,2); printf(lcd_out,"Seq. Checking...");
-          delay_ms(1000);
-      
-          ryb_detected = 0;   // reset counter before detection
-          while(1)
-          {
-              output_low(RLED); output_low(YLED); output_low(BLED);
-              delay_ms(300);
-              output_high(RLED); output_high(YLED); output_high(BLED);
-              delay_ms(200);
-              seq_flag=1; reset_sequence(); ryb_detected++;
-              if(ryb_detected>=5){ wait=1; break; }
-              new_value(); voltage();
-              currentr=0; currentr2=0; currentr3=0;
-              if(sentflg==1||sentflg2==1){ sentflg=0; sentflg2=0; }
-          }
+         output_low(RLED); output_low(YLED); output_low(BLED);
+         delay_ms(300);
+         output_high(RLED); output_high(YLED); output_high(BLED);
+         delay_ms(200);
+         display_sequence(); reset_sequence();
+         if(ryb_detected>=5){ wait=1; break; }
+         new_value(); voltage();
+         currentr=0; currentr2=0; currentr3=0;
+         if(sentflg==1||sentflg2==1){ sentflg=0; sentflg2=0; }
       }
-      else
+   }
+   if(seqok==1)
+   {
+      while(1)
       {
-          wait=1;
+         output_low(RLED); output_low(YLED); output_low(BLED);
+         delay_ms(300);
+         output_high(RLED); output_high(YLED); output_high(BLED);
+         delay_ms(200);
+         seq_flag=1; reset_sequence(); ryb_detected++;
+         if(ryb_detected>=5){ wait=1; break; }
+         new_value(); voltage();
+         currentr=0; currentr2=0; currentr3=0;
+         if(sentflg==1||sentflg2==1){ sentflg=0; sentflg2=0; }
       }
+   }
    output_low(RLED); output_low(YLED); output_low(BLED);
 
    prog=0; menu_number=1; in_menu_selection=1;
- //  int8 ct_ratio = read_eeprom(0x60);
+   int8 ct_ratio = read_eeprom(0x60);
 
    //--------------------------------------------------------------------------
    // GSM init on startup if flag is set
@@ -3387,18 +3299,13 @@ void main()
    enable_interrupts(GLOBAL);
    lcd_cmd(LCD_CLEAR);
    
-   // Force voltage readings before entering main loop
-      update_flag = 1;
-      new_value();
-      voltage();
-         
      apply_timer_resume();
      
      // Immediate auto start after power restore (skip 60s ISR wait)
-     if(aut == 1 && timer_mode == 0 && cyclic_state == 0 &&
-         volt_level == 0 && amps_level == 0 && all_phases_ok())
+      if(aut == 1 && timer_mode == 0 && cyclic_state == 0 &&
+         volt_level == 0 && amps_level == 0)
       {
-          auto_state      = 1;
+          auto_state      = 1;   // mark as already triggered
           auto_start_s    = 0;
           auto_start_done = 0;   // allow the main loop block to fire once
           state           = 1;   // signal main loop to turn on
@@ -3438,12 +3345,7 @@ void main()
       
               // ---- DRY RUN HANDLING ----
         // When amps_level just became 1 (dry run trip)
-     // In timer mode, only detect dry run during ON phase (timer_phase==0)
-       // During OFF phase, motor is already off - ignore dry run condition
-       int1 dryrun_active_phase = 1;
-       if(timer_mode == 1 && timer_phase == 1) dryrun_active_phase = 0;
-
-       if(amps_level == 1 && on_state == 1 && sentflg == 0 && dryrun_active_phase == 1)
+       if(amps_level == 1 && on_state == 1 && sentflg == 0)
          {
              sentflg = 1;   // prevent repeated SMS
              
@@ -3455,9 +3357,7 @@ void main()
              lcd_goto(1,2); printf(lcd_out,"A:%2.0f T:%lu", currentr, (unsigned long)drya);
              delay_ms(2000);
             
-             dry_s       = 0;
-             dry_reset_s = 1; 
-            
+             
             if(timer_mode==1 && timer_running==1)
                {
                    pause_timer_by_sms();
@@ -3483,11 +3383,10 @@ void main()
                  enable_interrupts(int_TIMER1);
                  enable_interrupts(GLOBAL);
              }
-              lcd_cmd(LCD_CLEAR);
          }
          
          // When amps_level cleared back to 0 (restart delay done)
-   if(amps_level == 0 && sentflg == 1 && on_state == 0
+     if(amps_level == 0 && sentflg == 1 && on_state == 0
         && volt_level == 0)
          {
              sentflg = 0;
@@ -3504,38 +3403,15 @@ void main()
              lcd_goto(1,2); printf(lcd_out,"Turning ON...");
              delay_ms(2000);
              
+             mon();
+             on_state = 1;
+             state    = 1;
+             q        = 'A';
+             
              if(timer_mode == 1 && timer_halted == 1)
              {
-                 // Resume timer from the exact slot it was halted at
-                 // timer_phase, active_timer_slot already in halt_* RAM vars
-                 resume_timer_by_sms();   // restores slot, phase, countdown
-                 
-                 if(timer_phase == 0)
-                 {
-                     // Halted during ON phase - turn motor ON, resume countdown
-                     mon();
-                     on_state = 1;
-                     state    = 1;
-                     q        = 'A';
-                     ctimer   = 1;
-                 }
-                 else
-                 {
-                     // Halted during OFF phase - motor stays OFF, let timer run out
-                     // then it will naturally transition to next slot's ON phase
-                     on_state = 0;
-                     state    = 0;
-                     q        = 'a';
-                     ctimer   = 0;
-                 }
-             }
-             else
-             {
-                 // Not timer halted (manual mode or timer not running)
-                 mon();
-                 on_state = 1;
-                 state    = 1;
-                 q        = 'A';
+                 resume_timer_by_sms();
+                 ctimer = 1;
              }
              
              enable_interrupts(int_AD);
@@ -3553,7 +3429,6 @@ void main()
                  enable_interrupts(int_TIMER1);
                  enable_interrupts(GLOBAL);
              }
-              lcd_cmd(LCD_CLEAR);
          }
       
      if(volt_level != 0 || amps_level != 0) {
@@ -3597,105 +3472,6 @@ void main()
               enable_interrupts(int_TIMER1);
               enable_interrupts(GLOBAL);
           }
-      }
-      // ---- PHASE LOSS DETECTION (3P mode only) ----
-// If configured as 3P and any one phase voltage drops below threshold
-// while motor is ON -> turn motor OFF immediately
-      if(phase_setting == 1 && on_state == 1)
-      {
-          int1 phase_lost = 0;
-      
-          if(vr < 50) phase_lost = 1;
-          if(vy < 50) phase_lost = 1;
-          if(vb < 50) phase_lost = 1;
-      
-          if(phase_lost == 1)
-          {
-              phase_loss_active = 1;
-              disable_interrupts(int_AD);
-              disable_interrupts(int_TIMER1);
-      
-              if(timer_mode == 1 && timer_running == 1)
-              {
-                  pause_timer_by_sms();
-                  ctimer = 0;
-              }
-      
-              moff();
-              on_state = 0;
-              state    = 0;
-              q        = 'a';
-      
-              if(gsm_enable == 1)
-              {
-                  send_sms_to_all_enabled((char*)"Motor OFF: Phase Loss Detected");
-                  if(timer_mode == 1)
-                      send_sms_to_all_enabled((char*)"Timer HALTED");
-              }
-      
-              lcd_cmd(LCD_CLEAR);
-              lcd_goto(1,1); printf(lcd_out,"PHASE LOSS!");
-              lcd_goto(1,2); printf(lcd_out,"Motor OFF!");
-              delay_ms(2000);
-              lcd_cmd(LCD_CLEAR);
-      
-              enable_interrupts(int_AD);
-              enable_interrupts(int_TIMER1);
-              enable_interrupts(GLOBAL);
-          }
-      }
-      // ---- CLEAR PHASE LOSS FLAG WHEN ALL PHASES RESTORED ----
-      if(phase_setting == 1 && phase_loss_active == 1)
-      {
-          if(vr >= 50 && vy >= 50 && vb >= 50)
-          {
-              phase_loss_active = 0;   // all phases back, allow manual ON again
-          }
-      }
-      // ---- PHASE CHANGE DETECTION: 3P -> 2P while motor ON -> turn OFF ----
-      if(phase_setting != last_phase_setting)
-      {
-          if(last_phase_setting == 1 && phase_setting == 0)
-          {
-              // Switched FROM 3P TO 2P - turn motor OFF immediately
-              if(on_state == 1)
-              {
-                  disable_interrupts(int_AD);
-                  disable_interrupts(int_TIMER1);
-      
-                  if(timer_mode == 1 && timer_running == 1)
-                  {
-                      pause_timer_by_sms();
-                      ctimer = 0;
-                  }
-      
-                  moff();
-                  on_state = 0;
-                  state    = 0;
-                  q        = 'a';
-      
-                  if(gsm_enable == 1)
-                  {
-                      send_sms_to_all_enabled((char*)"Motor OFF: Phase changed 3P to 2P");
-                      if(timer_mode == 1)
-                          send_sms_to_all_enabled((char*)"Timer HALTED");
-                  }
-      
-                  lcd_cmd(LCD_CLEAR);
-                  lcd_goto(1,1); printf(lcd_out,"PHASE: 3P -> 2P");
-                  lcd_goto(1,2); printf(lcd_out,"Motor OFF!");
-                  delay_ms(2000);
-                  lcd_cmd(LCD_CLEAR);
-      
-                  enable_interrupts(int_AD);
-                  enable_interrupts(int_TIMER1);
-                  enable_interrupts(GLOBAL);
-              }
-          }
-          // 2P -> 3P: motor stays ON, no action needed
-          // Just update the tracker silently
-      
-          last_phase_setting = phase_setting;   // always update tracker
       }
       if(t_state==on_state) now=now;
       else { t_state=on_state; now=2; }
@@ -3901,8 +3677,8 @@ void main()
                    enable_interrupts(GLOBAL);
                }
          
-          if(RxBuffer[0]=='#' && RxBuffer[1]=='O' && RxBuffer[2]=='N') {
-                  if(volt_level==0 && amps_level==0 && phase_loss_active==0 && all_phases_ok())
+            if(RxBuffer[0]=='#' && RxBuffer[1]=='O' && RxBuffer[2]=='N') {
+                   if(volt_level==0 && amps_level==0)
                    {
                        disable_interrupts(int_AD);
                        disable_interrupts(int_TIMER1);
@@ -4195,9 +3971,9 @@ void main()
 
        // ---- AUTO START: state set by ISR after 60s ----
    
-     if(timer_mode==0 && cyclic_state==0 && aut==1 &&
+      if(timer_mode==0 && cyclic_state==0 && aut==1 &&
          state==1 && on_state==0 && auto_start_done==0 &&
-         volt_level==0 && amps_level==0 && all_phases_ok())
+         volt_level==0 && amps_level==0)
       {
           disable_interrupts(int_AD);
           disable_interrupts(int_TIMER1);
@@ -4215,7 +3991,7 @@ void main()
           enable_interrupts(GLOBAL);
       }
      // ---- KEY1 : Motor ON ----
-  if(timer_mode==0 && !input(key1) && volt_level==0 && amps_level==0 && on_state==0 && phase_loss_active==0 && all_phases_ok())
+     if(timer_mode==0 && !input(key1) && volt_level==0 && amps_level==0 && on_state==0)
       {
          disable_interrupts(int_AD);
          disable_interrupts(int_TIMER1);
@@ -4227,6 +4003,7 @@ void main()
          enable_interrupts(int_TIMER1);
          enable_interrupts(GLOBAL);
       }
+
    
       // ---- KEY2 : Motor OFF ----
       if(timer_mode==0 && !input(key2))
@@ -4246,5 +4023,4 @@ void main()
       }
    } // while(1)
 } // main
-
 

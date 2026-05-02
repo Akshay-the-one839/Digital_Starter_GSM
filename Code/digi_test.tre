@@ -1,5 +1,5 @@
 ÀÄdigi_test
-   ÃÄMAIN  0/13448  Ram=8
+   ÃÄMAIN  0/14986  Ram=8
    ³  ÃÄ@cinit1  (Inline)  Ram=0
    ³  ÃÄLCD_Initialize  0/192  Ram=0
    ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
@@ -36,7 +36,7 @@
    ³  ÃÄ@DIVFF  0/350  Ram=14
    ³  ÃÄ@FLT  0/122  Ram=10
    ³  ÃÄ@DIVFF  0/350  Ram=14
-   ³  ÃÄresume_timer_from_eeprom  0/260  Ram=2
+   ³  ÃÄresume_timer_from_eeprom  0/264  Ram=2
    ³  ³  ÃÄclear_timer_resume_eeprom  0/50  Ram=0
    ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ÀÄLCD_Cmd  0/110  Ram=2
@@ -77,37 +77,53 @@
    ³  ³  ÀÄ*
    ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ÃÄdisplay_sequence  0/130  Ram=0
-   ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ÃÄreset_sequence  0/14  Ram=0
-   ³  ÃÄnew_value  0/612  Ram=6
+   ³  ÃÄnew_value  0/614  Ram=6
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
-   ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ÃÄ@DIVFF  0/350  Ram=14
-   ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ÃÄ@SFTOI  0/60  Ram=4
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
-   ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ÃÄ@DIVFF  0/350  Ram=14
    ³  ³  ÃÄ@DIVFF  0/350  Ram=14
-   ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ÀÄchange  0/242  Ram=0
    ³  ³     ÃÄ@SFTOI  0/60  Ram=4
    ³  ³     ÃÄ@SFTOI  0/60  Ram=4
    ³  ³     ÀÄ@SFTOI  0/60  Ram=4
-   ³  ÃÄvoltage  0/372  Ram=0
+   ³  ÃÄvoltage  0/320  Ram=0
+   ³  ÃÄall_three_phases_present  0/60  Ram=0
    ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ÃÄreset_sequence  0/14  Ram=0
-   ³  ÃÄnew_value  0/612  Ram=6
+   ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄvoltage  0/372  Ram=0
+   ³  ÃÄLCD_GOTO  0/104  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_GOTO  0/104  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄ@delay_ms2  0/40  Ram=1
+   ³  ÃÄLCD_Cmd  0/110  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_GOTO  0/104  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_GOTO  0/104  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄ@delay_ms2  0/40  Ram=1
+   ³  ÃÄ@delay_ms2  0/40  Ram=1
+   ³  ÃÄ@delay_ms2  0/40  Ram=1
+   ³  ÃÄreset_sequence  0/16  Ram=0
+   ³  ÃÄnew_value  0/614  Ram=6
+   ³  ³  ÀÄ*
+   ³  ÃÄvoltage  0/320  Ram=0
    ³  ÃÄgsm_init  0/428  Ram=1
    ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ÀÄ*
@@ -163,12 +179,16 @@
    ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄapply_timer_resume  0/252  Ram=5
+   ³  ÃÄnew_value  0/614  Ram=6
+   ³  ³  ÀÄ*
+   ³  ÃÄvoltage  0/320  Ram=0
+   ³  ÃÄapply_timer_resume  0/264  Ram=5
    ³  ³  ÃÄclear_timer_resume_eeprom  0/50  Ram=0
-   ³  ³  ÃÄmon  0/70  Ram=1
+   ³  ³  ÃÄall_phases_ok  0/84  Ram=0
+   ³  ³  ÃÄmon  0/68  Ram=1
    ³  ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄ@const1917  0/60  Ram=0
-   ³  ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ³  ÃÄ@const1925  0/60  Ram=0
+   ³  ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ³  ÃÄread_number  0/138  Ram=8
    ³  ³  ³  ÀÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ³     ÃÄ@delay_ms2  0/40  Ram=1
@@ -183,12 +203,14 @@
    ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ÀÄLCD_Cmd  0/110  Ram=2
    ³  ³     ÀÄ*
+   ³  ÃÄall_phases_ok  0/84  Ram=0
    ³  ÃÄsave_timer_to_eeprom  0/236  Ram=0
-   ³  ÃÄhandle_timer_mode  0/272  Ram=3
-   ³  ³  ÃÄload_next_timer_slot  0/1012  Ram=10
-   ³  ³  ³  ÃÄmon  0/70  Ram=1
+   ³  ÃÄhandle_timer_mode  0/302  Ram=3
+   ³  ³  ÃÄload_next_timer_slot  0/1032  Ram=10
+   ³  ³  ³  ÃÄall_phases_ok  0/84  Ram=0
+   ³  ³  ³  ÃÄmon  0/68  Ram=1
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ³  ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄclear_timer_resume_eeprom  0/50  Ram=0
    ³  ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
@@ -201,7 +223,7 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@const1901  0/56  Ram=0
+   ³  ³  ³  ÃÄ@const1909  0/56  Ram=0
    ³  ³  ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
@@ -217,26 +239,23 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@const1905  0/62  Ram=0
+   ³  ³  ³  ÃÄ@const1913  0/62  Ram=0
    ³  ³  ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÀÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³     ÀÄ*
-   ³  ³  ÃÄmoff  0/116  Ram=1
-   ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
+   ³  ³  ÃÄmoff  0/72  Ram=1
    ³  ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄ@DIV88  0/44  Ram=3
-   ³  ³  ÀÄload_next_timer_slot  0/1012  Ram=10
+   ³  ³  ÀÄload_next_timer_slot  0/1032  Ram=10
    ³  ³     ÀÄ*
-   ³  ÃÄnew_value  0/612  Ram=6
+   ³  ÃÄnew_value  0/614  Ram=6
    ³  ³  ÀÄ*
-   ³  ÃÄvoltage  0/372  Ram=0
-   ³  ÃÄamps  0/676  Ram=0
+   ³  ÃÄvoltage  0/320  Ram=0
+   ³  ÃÄamps  0/748  Ram=1
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
    ³  ³  ÃÄ@FLT  0/122  Ram=10
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
@@ -257,7 +276,7 @@
    ³  ³  ÃÄ@FLT  0/122  Ram=10
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
    ³  ³  ÀÄ@FLT  0/122  Ram=10
-   ³  ÃÄcheck_unbalance_trip  0/1042  Ram=20
+   ³  ÃÄcheck_unbalance_trip  0/1048  Ram=20
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
@@ -271,17 +290,17 @@
    ³  ³  ÃÄ@FLT  0/122  Ram=10
    ³  ³  ÃÄ@ADDFF  0/632  Ram=16
    ³  ³  ÃÄ@DIVFF  0/350  Ram=14
-   ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ÃÄ@ITOF  0/54  Ram=2
    ³  ³  ÃÄ@FLT  0/122  Ram=10
-   ³  ³  ÃÄmoff  0/116  Ram=1
+   ³  ³  ÃÄmoff  0/72  Ram=1
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄpause_timer_by_sms  0/292  Ram=1
-   ³  ³  ÃÄ@const1885  0/60  Ram=0
-   ³  ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ³  ÃÄpause_timer_by_sms  0/296  Ram=1
+   ³  ³  ÃÄ@const1893  0/60  Ram=0
+   ³  ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@const1887  0/40  Ram=0
-   ³  ³  ÀÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ³  ÃÄ@const1895  0/40  Ram=0
+   ³  ³  ÀÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³     ÀÄ*
    ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ÀÄ*
@@ -295,8 +314,8 @@
    ³  ³  ÀÄ*
    ³  ÃÄLCD_Out  0/46  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
-   ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
+   ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ÃÄ@FTOSD  0/68  Ram=5
    ³  ³  ÃÄ@DIV3232  0/148  Ram=13
    ³  ³  ÃÄLCD_Out  0/46  Ram=2
@@ -314,14 +333,16 @@
    ³  ³  ÀÄLCD_Out  0/46  Ram=2
    ³  ³     ÀÄ*
    ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ÃÄpause_timer_by_sms  0/292  Ram=1
-   ³  ÃÄmoff  0/116  Ram=1
+   ³  ÃÄpause_timer_by_sms  0/296  Ram=1
+   ³  ÃÄmoff  0/72  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1947  0/44  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const1961  0/44  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1887  0/40  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const1895  0/40  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ÀÄ*
    ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ÀÄ*
@@ -334,37 +355,85 @@
    ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
    ³  ³  ÀÄ*
    ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ÃÄmon  0/70  Ram=1
-   ³  ³  ÀÄ*
    ³  ÃÄresume_timer_by_sms  0/348  Ram=0
-   ³  ÃÄ@const1952  0/58  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄmon  0/68  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1954  0/40  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄmon  0/68  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄmoff  0/116  Ram=1
+   ³  ÃÄ@const1966  0/58  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄpause_timer_by_sms  0/292  Ram=1
-   ³  ÃÄ@const1955  0/56  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const1968  0/40  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1887  0/40  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1958  0/56  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄmoff  0/72  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1887  0/40  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄpause_timer_by_sms  0/296  Ram=1
+   ³  ÃÄ@const1969  0/56  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1961  0/52  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const1895  0/40  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1887  0/40  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const1972  0/56  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄnew_value  0/612  Ram=6
+   ³  ÃÄ@const1895  0/40  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@const1975  0/52  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@const1895  0/40  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄpause_timer_by_sms  0/296  Ram=1
+   ³  ÃÄmoff  0/72  Ram=1
+   ³  ³  ÀÄ*
+   ³  ÃÄ@const1979  0/58  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@const1895  0/40  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_Cmd  0/110  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_GOTO  0/104  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_GOTO  0/104  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄ@delay_ms2  0/40  Ram=1
+   ³  ÃÄLCD_Cmd  0/110  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄpause_timer_by_sms  0/296  Ram=1
+   ³  ÃÄmoff  0/72  Ram=1
+   ³  ³  ÀÄ*
+   ³  ÃÄ@const1984  0/60  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@const1895  0/40  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_Cmd  0/110  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_GOTO  0/104  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄLCD_GOTO  0/104  Ram=3
+   ³  ³  ÀÄ*
+   ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄ@delay_ms2  0/40  Ram=1
+   ³  ÃÄLCD_Cmd  0/110  Ram=2
+   ³  ³  ÀÄ*
+   ³  ÃÄnew_value  0/614  Ram=6
    ³  ³  ÀÄ*
    ³  ÃÄ@FLT  0/122  Ram=10
    ³  ÃÄ@DIV1616  0/70  Ram=5
@@ -386,15 +455,15 @@
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
@@ -451,15 +520,15 @@
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
@@ -567,7 +636,7 @@
    ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ÀÄ*
    ³  ÃÄextract_sender_simple  0/356  Ram=10
-   ³  ÃÄprocess_enable_disable  0/504  Ram=38
+   ³  ÃÄprocess_enable_disable  0/508  Ram=38
    ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
@@ -588,114 +657,115 @@
    ³  ³  ÃÄ@PRINTF_D_1109  0/200  Ram=6
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄ@PSTRINGC_1399  0/32  Ram=2
+   ³  ³  ÃÄ@PSTRINGC_1406  0/32  Ram=2
    ³  ³  ³  ÀÄ@SPRINTF  0/34  Ram=1
    ³  ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsave_slot_enable_status  0/178  Ram=4
-   ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ÀÄ@SPRINTF  0/34  Ram=1
-   ³  ³  ÃÄ@PRINTF_D_1399  0/196  Ram=6
+   ³  ³  ÃÄ@PRINTF_D_1406  0/192  Ram=6
    ³  ³  ³  ÃÄ@DIV88  0/44  Ram=3
    ³  ³  ³  ÃÄ@DIV88  0/44  Ram=3
    ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
    ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
    ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
    ³  ³  ³  ÀÄ@SPRINTF  0/34  Ram=1
-   ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄsave_slot_enable_status  0/178  Ram=4
-   ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@PRINTF_D_1399  0/196  Ram=6
+   ³  ³  ÃÄ@PRINTF_D_1406  0/192  Ram=6
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ÀÄ*
    ³  ³  ÀÄsend_sms_to_number  0/168  Ram=5
    ³  ³     ÀÄ*
-   ³  ÃÄ@const1997  0/44  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2022  0/44  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1999  0/66  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2024  0/66  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2001  0/46  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2026  0/46  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1999  0/66  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2024  0/66  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2005  0/46  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2030  0/46  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2007  0/44  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2032  0/44  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
+   ³  ÃÄall_phases_ok  0/84  Ram=0
    ³  ÃÄresume_timer_by_sms  0/348  Ram=0
-   ³  ÃÄmon  0/70  Ram=1
+   ³  ÃÄmon  0/68  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const1954  0/40  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const1968  0/40  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄmon  0/70  Ram=1
+   ³  ÃÄmon  0/68  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄpause_timer_by_sms  0/292  Ram=1
-   ³  ÃÄmoff  0/116  Ram=1
+   ³  ÃÄpause_timer_by_sms  0/296  Ram=1
+   ³  ÃÄmoff  0/72  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2011  0/50  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2036  0/50  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄmoff  0/116  Ram=1
+   ³  ÃÄmoff  0/72  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
    ³  ÃÄclear_timer_resume_eeprom  0/50  Ram=0
-   ³  ÃÄmoff  0/116  Ram=1
+   ³  ÃÄmoff  0/72  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2013  0/72  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2038  0/72  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2018  0/68  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2043  0/68  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2020  0/72  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2045  0/72  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
    ³  ÃÄsend_detailed_status_to_all  0/124  Ram=151
-   ³  ³  ÃÄformat_detailed_status  0/1028  Ram=26
-   ³  ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ÃÄformat_detailed_status  0/1034  Ram=26
+   ³  ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ³  ÃÄ@SFTOI  0/60  Ram=4
-   ³  ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ³  ÃÄ@SFTOI  0/60  Ram=4
-   ³  ³  ³  ÃÄ@MULFF  0/246  Ram=11
+   ³  ³  ³  ÃÄ@MULFF  0/286  Ram=11
    ³  ³  ³  ÃÄ@SFTOI  0/60  Ram=4
-   ³  ³  ³  ÃÄstrcat  0/114  Ram=9
-   ³  ³  ³  ÃÄstrcat  0/114  Ram=9
-   ³  ³  ³  ÃÄstrcat  0/114  Ram=9
-   ³  ³  ³  ÃÄ@PSTRINGC_1399  0/32  Ram=2
+   ³  ³  ³  ÃÄstrcat  0/118  Ram=9
+   ³  ³  ³  ÃÄstrcat  0/118  Ram=9
+   ³  ³  ³  ÃÄstrcat  0/118  Ram=9
+   ³  ³  ³  ÃÄ@PSTRINGC_1406  0/32  Ram=2
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PSTRINGC_1399  0/32  Ram=2
+   ³  ³  ³  ÃÄ@PSTRINGC_1406  0/32  Ram=2
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄstrcat  0/114  Ram=9
-   ³  ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ³  ÃÄstrcat  0/118  Ram=9
+   ³  ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
    ³  ³  ³  ³  ÀÄ@SPRINTF  0/34  Ram=1
-   ³  ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄstrcat  0/114  Ram=9
+   ³  ³  ³  ÃÄstrcat  0/118  Ram=9
    ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=5
    ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=5
    ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=5
@@ -705,38 +775,38 @@
    ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=5
    ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=5
    ³  ³  ³  ÃÄ@DIV1616  0/70  Ram=5
-   ³  ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
-   ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
-   ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
-   ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
-   ³  ³  ³  ÃÄ@PRINTF_LU_1399  0/198  Ram=9
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
+   ³  ³  ³  ³  ÀÄ*
+   ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
+   ³  ³  ³  ÃÄ@PRINTF_LU_1406  0/198  Ram=9
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
    ³  ³  ³  ÃÄ@SPRINTF  0/34  Ram=1
-   ³  ³  ³  ÀÄstrcat  0/114  Ram=9
+   ³  ³  ³  ÀÄstrcat  0/118  Ram=9
    ³  ³  ÃÄread_number  0/138  Ram=8
    ³  ³  ÀÄsend_sms_to_number  0/168  Ram=5
    ³  ³     ÀÄ*
-   ³  ÃÄ@const2022  0/42  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2047  0/42  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2024  0/42  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2049  0/42  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
    ³  ÃÄsend_all_numbers  0/256  Ram=3
    ³  ³  ÃÄ@PSTRINGCN_9600_31766_31767  0/42  Ram=3
@@ -755,56 +825,47 @@
    ³  ³  ÀÄ*
    ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PSTRINGC_1399  0/32  Ram=2
+   ³  ÃÄ@PSTRINGC_1406  0/32  Ram=2
    ³  ³  ÀÄ*
    ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ÀÄ*
    ³  ÃÄ@MEMSET  0/26  Ram=0
    ³  ÃÄLCD_Out  0/46  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_D_1399  0/196  Ram=6
+   ³  ÃÄ@PRINTF_D_1406  0/192  Ram=6
    ³  ³  ÀÄ*
    ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ÀÄ*
    ³  ÃÄ@MEMSET  0/26  Ram=0
-   ³  ÃÄ@const2039  0/52  Ram=0
+   ³  ÃÄ@const2064  0/52  Ram=0
    ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ÀÄ*
    ³  ÃÄread_number  0/138  Ram=8
    ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ÀÄ*
-   ³  ÃÄsave_number  0/712  Ram=8
+   ³  ÃÄsave_number  0/580  Ram=8
    ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_Out  0/46  Ram=2
+   ³  ³  ÃÄ@PSTRINGCN_1109  0/42  Ram=3
+   ³  ³  ³  ÀÄ*
+   ³  ³  ÃÄ@PRINTF_D_1109  0/200  Ram=6
    ³  ³  ³  ÀÄ*
    ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_Out  0/46  Ram=2
+   ³  ³  ÃÄ@PSTRINGR_1109  0/38  Ram=2
    ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_Out  0/46  Ram=2
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_Out  0/46  Ram=2
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
-   ³  ³  ³  ÀÄ*
-   ³  ³  ÀÄLCD_Out  0/46  Ram=2
-   ³  ³     ÀÄ*
+   ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
    ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ÀÄ*
-   ³  ÃÄsave_number  0/712  Ram=8
+   ³  ÃÄsave_number  0/580  Ram=8
    ³  ³  ÀÄ*
-   ³  ÃÄ@PSTRINGCN_1399  0/40  Ram=3
+   ³  ÃÄ@PSTRINGCN_1406  0/40  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄ@PRINTF_D_1399  0/196  Ram=6
+   ³  ÃÄ@PRINTF_D_1406  0/192  Ram=6
    ³  ³  ÀÄ*
    ³  ÃÄsend_sms_to_number  0/168  Ram=5
    ³  ³  ÀÄ*
@@ -822,14 +883,14 @@
    ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ÀÄ*
-   ³  ÃÄhandle_menu  0/336  Ram=0
-   ³  ³  ÃÄhandle_menu_navigation  0/258  Ram=2
+   ³  ÃÄhandle_menu  0/352  Ram=0
+   ³  ³  ÃÄhandle_menu_navigation  0/262  Ram=2
    ³  ³  ³  ÃÄshow_menu_selection  0/416  Ram=0
    ³  ³  ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ³  ÃÄ@goto13515  0/72  Ram=0
+   ³  ³  ³  ³  ÃÄ@goto13536  0/72  Ram=0
    ³  ³  ³  ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
    ³  ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ³  ÃÄ@PSTRINGC_1109  0/32  Ram=2
@@ -1057,7 +1118,7 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄhandle_set_on_time  0/1160  Ram=4
+   ³  ³  ÃÄhandle_set_on_time  0/1168  Ram=4
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ³  ÀÄ*
@@ -1128,7 +1189,7 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄhandle_star_delta_delay  0/1212  Ram=4
+   ³  ³  ÃÄhandle_star_delta_delay  0/1228  Ram=4
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ³  ÀÄ*
@@ -1199,7 +1260,7 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄhandle_voltage_setting  0/3770  Ram=12
+   ³  ³  ÃÄhandle_voltage_setting  0/3752  Ram=12
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ³  ÀÄ*
@@ -1735,10 +1796,10 @@
    ³  ³  ³  ÃÄLCD_Out  0/46  Ram=2
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ³  ÃÄ@goto15651  0/44  Ram=0
+   ³  ³  ³  ÃÄ@goto15672  0/44  Ram=0
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ³  ÃÄ@goto15684  0/44  Ram=0
+   ³  ³  ³  ÃÄ@goto15705  0/44  Ram=0
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
@@ -1936,9 +1997,9 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÃÄhandle_ct_selection_menu  0/1078  Ram=3
-   ³  ³  ³  ÃÄ@const1790  0/32  Ram=0
-   ³  ³  ³  ÃÄ@const1790  0/32  Ram=0
+   ³  ³  ÃÄhandle_ct_selection_menu  0/1130  Ram=3
+   ³  ³  ³  ÃÄ@const1798  0/32  Ram=0
+   ³  ³  ³  ÃÄ@const1798  0/32  Ram=0
    ³  ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
@@ -1947,8 +2008,8 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@const1787  0/38  Ram=0
-   ³  ³  ³  ÃÄ@const1790  0/32  Ram=0
+   ³  ³  ³  ÃÄ@const1795  0/38  Ram=0
+   ³  ³  ³  ÃÄ@const1798  0/32  Ram=0
    ³  ³  ³  ÃÄLCD_Out  0/46  Ram=2
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄLCD_Out  0/46  Ram=2
@@ -1966,8 +2027,8 @@
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³  ³  ÃÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ³  ÃÄ@const1790  0/32  Ram=0
-   ³  ³  ³  ÃÄ@const1790  0/32  Ram=0
+   ³  ³  ³  ÃÄ@const1798  0/32  Ram=0
+   ³  ³  ³  ÃÄ@const1798  0/32  Ram=0
    ³  ³  ³  ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
@@ -1976,8 +2037,8 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄLCD_GOTO  0/104  Ram=3
    ³  ³  ³  ³  ÀÄ*
-   ³  ³  ³  ÃÄ@const1787  0/38  Ram=0
-   ³  ³  ³  ÃÄ@const1790  0/32  Ram=0
+   ³  ³  ³  ÃÄ@const1795  0/38  Ram=0
+   ³  ³  ³  ÃÄ@const1798  0/32  Ram=0
    ³  ³  ³  ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄ@PRINTF_LU_1109  0/200  Ram=9
@@ -2071,7 +2132,7 @@
    ³  ³  ³  ³  ÀÄ*
    ³  ³  ³  ÃÄadvance_to_next_menu  0/22  Ram=0
    ³  ³  ³  ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ³  ÀÄhandle_polarization_index_menu  0/2288  Ram=8
+   ³  ³  ÀÄhandle_polarization_index_menu  0/2292  Ram=8
    ³  ³     ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@delay_ms2  0/40  Ram=1
@@ -2085,7 +2146,7 @@
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
-   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
@@ -2104,7 +2165,7 @@
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
-   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
@@ -2130,7 +2191,7 @@
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
-   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
@@ -2149,11 +2210,11 @@
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
-   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
-   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@delay_ms2  0/40  Ram=1
    ³  ³     ÃÄLCD_GOTO  0/104  Ram=3
@@ -2176,7 +2237,7 @@
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
-   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/440  Ram=13
+   ³  ³     ÃÄ@PRINTF_L32D_1109FPFPF  0/486  Ram=13
    ³  ³     ³  ÀÄ*
    ³  ³     ÃÄ@PSTRINGCN_1109  0/42  Ram=3
    ³  ³     ³  ÀÄ*
@@ -2196,26 +2257,28 @@
    ³  ³     ÃÄLCD_Cmd  0/110  Ram=2
    ³  ³     ³  ÀÄ*
    ³  ³     ÀÄ@delay_ms2  0/40  Ram=1
-   ³  ÃÄmon  0/70  Ram=1
+   ³  ÃÄall_phases_ok  0/84  Ram=0
+   ³  ÃÄmon  0/68  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2045  0/68  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2070  0/68  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄmon  0/70  Ram=1
+   ³  ÃÄall_phases_ok  0/84  Ram=0
+   ³  ÃÄmon  0/68  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2047  0/44  Ram=0
-   ³  ÃÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2072  0/44  Ram=0
+   ³  ÃÄsend_sms_to_all_enabled  0/106  Ram=3
    ³  ³  ÀÄ*
-   ³  ÃÄmoff  0/116  Ram=1
+   ³  ÃÄmoff  0/72  Ram=1
    ³  ³  ÀÄ*
-   ³  ÃÄ@const2049  0/46  Ram=0
-   ³  ÀÄsend_sms_to_all_enabled  0/108  Ram=3
+   ³  ÃÄ@const2074  0/46  Ram=0
+   ³  ÀÄsend_sms_to_all_enabled  0/106  Ram=3
    ³     ÀÄ*
    ÃÄadc_isr  0/534  Ram=4
    ³  ÃÄ@READBITA  0/52  Ram=5
    ³  ÃÄ@WRITEBITA  0/68  Ram=6
    ³  ÀÄ@goto12470  0/38  Ram=0
-   ÃÄtimer1_isr  0/422  Ram=1
+   ÃÄtimer1_isr  0/418  Ram=1
    ³  ÃÄ@MUL1616  0/34  Ram=5
    ³  ÀÄ@MUL1616  0/34  Ram=5
    ÀÄRDA_isr  0/168  Ram=3

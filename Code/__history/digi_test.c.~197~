@@ -655,7 +655,6 @@ void save_number(char *num, int slot) {
    printf(lcd_out,"%s", num);
    delay_ms(2000);
 }
-
 void init_slot_status(void) {
     int8 slot_flags = read_eeprom(GSM_SLOT_EN_ADDR);
    

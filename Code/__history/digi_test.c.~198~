@@ -655,7 +655,6 @@ void save_number(char *num, int slot) {
    printf(lcd_out,"%s", num);
    delay_ms(2000);
 }
-
 void init_slot_status(void) {
     int8 slot_flags = read_eeprom(GSM_SLOT_EN_ADDR);
    
@@ -974,38 +973,37 @@ void voltage()
 
 void amps()
 {
-   if(phase)
+   if(phase)  // 3P mode
    {
       if(currentr < drya && currentr2 < drya)
       {
-         // In timer mode, only accumulate dry run during ON phase
          int1 allow_dryrun = 1;
          if(timer_mode == 1 && timer_phase == 1) allow_dryrun = 0;
          if(dry_s==0 && amps_level==0 && on_state==1 && allow_dryrun==1)
-         { dry_s=1;  }
+            { dry_s=1; }
       }
       else if(currentr > over_cr || currentr2 > over_cy)
          amps_level = 2;
       else
       {
-         if(amps_level==0) { dry_s=0; dry_reset_s=0; }
+         if(amps_level==0 && sentflg==0) { dry_s=0; dry_reset_s=0; }
          if(amps_level==2 && sentflg==1) amps_level=0;
       }
    }
-   else
+   else  // 2P mode - FIXED: only check R and Y currents
    {
-     if(currentr < drya && currentr2 < drya && currentr3 < drya)
+      if(currentr < drya && currentr2 < drya)  // removed currentr3 check
       {
          int1 allow_dryrun = 1;
          if(timer_mode == 1 && timer_phase == 1) allow_dryrun = 0;
          if(dry_s==0 && amps_level==0 && on_state==1 && allow_dryrun==1)
-         { dry_s=1; }
+            { dry_s=1; }
       }
-      else if(currentr > over_cr && currentr2 > over_cy && currentr3 > over_cb)
+      else if(currentr > over_cr || currentr2 > over_cy)  // OR logic for 2P
          amps_level = 2;
       else
       {
-         if(amps_level==0) { dry_s=0; dry_reset_s=0; }
+         if(amps_level==0 && sentflg==0) { dry_s=0; dry_reset_s=0; }
          if(amps_level==2 && sentflg==1) amps_level=0;
       }
    }
@@ -1717,6 +1715,7 @@ void handle_dryrun_delay()
             if(dryrun_delay!=original_delay)
             {
                write_eeprom(0x17,make8(dryrun_delay,0)); write_eeprom(0x18,make8(dryrun_delay,1));
+               drys = dryrun_delay;   // update runtime variable immediately
                lcd_cmd(LCD_CLEAR); lcd_goto(1,1); printf(lcd_out," DELAY SAVED!");
                lcd_goto(1,2); printf(lcd_out,"   %ld sec   ",(long)dryrun_delay);
                while(input(ENCODER_SW)==0) delay_ms(10);
@@ -1805,6 +1804,7 @@ void handle_dryrun_restart()
             if(restart_delay!=original_delay)
             {
                write_eeprom(0x1A,make8(restart_delay,0)); write_eeprom(0x1B,make8(restart_delay,1));
+               dry_restart_val = restart_delay;   // update runtime variable immediately
                lcd_cmd(LCD_CLEAR); lcd_goto(1,1); printf(lcd_out," DELAY SAVED!   ");
                lcd_goto(1,2); printf(lcd_out,"   %ld sec   ",(long)restart_delay);
                while(input(ENCODER_SW)==0) delay_ms(10);
@@ -1888,6 +1888,7 @@ void handle_dryrun_trip()
             if(trip_current!=original_current)
             {
                write_eeprom(0x1D,make8(trip_current,0)); write_eeprom(0x1E,make8(trip_current,1));
+               drya = trip_current;   // update runtime variable immediately
                lcd_cmd(LCD_CLEAR); lcd_goto(1,1); printf(lcd_out," VALUE SAVED!  ");
                lcd_goto(1,2); printf(lcd_out," %ld Amps   ",(long)trip_current);
                while(input(ENCODER_SW)==0) delay_ms(10);
@@ -3736,7 +3737,8 @@ void main()
              if(phase_setting==0) printf(lcd_out,"2P");
               else  printf(lcd_out,"3P");
              lcd_goto(14,2); 
-             if( on_state == 1)printf(lcd_out,"ON ");              
+             if(sentflg == 1) printf(lcd_out,"DRY");
+             else if( on_state == 1)printf(lcd_out,"ON ");              
              else printf(lcd_out,"OFF");
              lcd_goto(1,2); printf(lcd_out,"%d%d%d,",rvolt3,rvolt2,rvolt1);
              lcd_goto(5,2); printf(lcd_out,"%d%d%d,",yvolt3,yvolt2,yvolt1);
